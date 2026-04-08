@@ -1,7 +1,7 @@
 // ─── Central API Client ───────────────────────────────────────────────────────
 // All requests go through this. JWT token is automatically attached.
 
-const BASE = "/api"; // Vite proxy forwards to http://localhost:8080
+const BASE = "https://durvankurclasses.onrender.com/api"; // Vite proxy forwards to http://localhost:8080
 
 // ── Token helpers ──────────────────────────────────────────────────────────────
 export const getToken = (): string | null => localStorage.getItem("jwtToken");
@@ -14,24 +14,24 @@ export const setToken = (
   userId?: string
 ) => {
   localStorage.setItem("jwtToken", token);
-  if (role)     { localStorage.setItem("userRole", role); }
+  if (role) { localStorage.setItem("userRole", role); }
   if (linkedId) { localStorage.setItem("linkedId", linkedId); }
-  if (name)     { localStorage.setItem("userName", name); }
-  if (userId)   { localStorage.setItem("userId", userId); }
+  if (name) { localStorage.setItem("userName", name); }
+  if (userId) { localStorage.setItem("userId", userId); }
 };
 
 export const clearToken = () => {
   ["jwtToken", "userRole", "linkedId", "userName", "userId"].forEach(k => localStorage.removeItem(k));
 };
 
-export const getRole     = (): string | null => localStorage.getItem("userRole");
-export const setRole     = (r: string) => localStorage.setItem("userRole", r);
+export const getRole = (): string | null => localStorage.getItem("userRole");
+export const setRole = (r: string) => localStorage.setItem("userRole", r);
 export const getLinkedId = (): string | null => localStorage.getItem("linkedId");
 export const setLinkedId = (id: string) => localStorage.setItem("linkedId", id);
 export const getUserName = (): string | null => localStorage.getItem("userName");
 export const setUserName = (n: string) => localStorage.setItem("userName", n);
-export const getUserId   = (): string | null => localStorage.getItem("userId");
-export const setUserId   = (id: string) => localStorage.setItem("userId", id);
+export const getUserId = (): string | null => localStorage.getItem("userId");
+export const setUserId = (id: string) => localStorage.setItem("userId", id);
 
 export function logout() {
   clearToken();
@@ -62,7 +62,7 @@ async function request<T>(
     try {
       const err = await res.json();
       msg = err.message || err.error || msg;
-    } catch {}
+    } catch { }
     throw new Error(msg);
   }
 
@@ -73,11 +73,11 @@ async function request<T>(
 
 // ── HTTP methods ───────────────────────────────────────────────────────────────
 export const api = {
-  get:    <T>(path: string)                    => request<T>(path),
-  post:   <T>(path: string, body: unknown)     => request<T>(path, { method: "POST",  body: JSON.stringify(body) }),
-  put:    <T>(path: string, body: unknown)     => request<T>(path, { method: "PUT",   body: JSON.stringify(body) }),
-  patch:  <T>(path: string, body?: unknown)    => request<T>(path, { method: "PATCH", body: body ? JSON.stringify(body) : undefined }),
-  delete: <T>(path: string)                    => request<T>(path, { method: "DELETE" }),
+  get: <T>(path: string) => request<T>(path),
+  post: <T>(path: string, body: unknown) => request<T>(path, { method: "POST", body: JSON.stringify(body) }),
+  put: <T>(path: string, body: unknown) => request<T>(path, { method: "PUT", body: JSON.stringify(body) }),
+  patch: <T>(path: string, body?: unknown) => request<T>(path, { method: "PATCH", body: body ? JSON.stringify(body) : undefined }),
+  delete: <T>(path: string) => request<T>(path, { method: "DELETE" }),
 };
 
 // ── Auth ───────────────────────────────────────────────────────────────────────
