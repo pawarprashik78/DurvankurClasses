@@ -1,0 +1,230 @@
+✅ REPLIT PROMPT (Frontend Only – React)
+
+Create a modern React frontend website for an offline tuition institute with the following details:
+
+🏫 Business Information:
+
+Business Name: Durvankur Classes
+
+Owner Name: Priyanka Tambat
+
+Niche: Offline Tuition Classes
+
+🎯 Project Goal:
+
+Build a responsive React frontend web application where:
+
+There are 4 stakeholders:
+
+Admin
+
+Teacher
+
+Parent
+
+Student
+
+The website should allow:
+
+Visitors to view class details
+
+Parents to check attendance, fees, and student progress
+
+Teachers/Admin to update attendance, marks, and fees (UI only – no backend required)
+
+Students to check their performance
+
+⚠️ Important:
+This is frontend only, so use:
+
+React (Vite or Create React App)
+
+Tailwind CSS (for styling)
+
+React Router
+
+Dummy data / local state for now
+
+Clean folder structure
+
+Professional UI design
+
+📄 Pages & Features
+1️⃣ Home Page
+
+Include:
+
+Navigation bar (Home, About, Login, Register)
+
+Hero section with institute introduction
+
+Tuition class details
+
+Owner name: Priyanka Tambat
+
+Recent Achievements section
+
+Call-to-action button (Register Now)
+
+2️⃣ Authentication Pages
+
+Login Page (Role selection: Admin / Teacher / Parent / Student)
+
+Register Page (Student Registration Form)
+
+3️⃣ Dashboard (Role-Based UI)
+
+Create different dashboards for:
+
+Admin
+
+Teacher
+
+Parent
+
+Student
+
+Use conditional rendering based on selected role.
+
+📊 Core Features Pages
+1) Daily Attendance
+
+Show daily attendance record
+
+Show total attendance percentage
+
+Use table format
+
+Color indicators (Present = Green, Absent = Red)
+
+2) Subject Wise Marks
+
+Display subject-wise marks
+
+Total marks calculation
+
+Show progress bar for each subject
+
+3) Fees Section
+
+Month-wise fees paid
+
+Pending fees highlighted in red
+
+Paid months in green
+
+Summary section: Total Paid / Total Pending
+
+4) Test Details
+
+Upcoming tests
+
+Past test results
+
+Marks scored
+
+5) Individual Student Progress
+
+Attendance %
+
+Average Marks
+
+Performance chart (use simple progress bars)
+
+6) Notes Section
+
+Subject-wise notes list
+
+Download button UI
+
+Upload button UI (for teacher/admin)
+
+7) Message Section
+
+Simple chat UI
+
+Parent ↔ Teacher communication layout
+
+Message input box
+
+8) Subject Wise Progress
+
+Show subject completion percentage
+
+Progress bars
+
+Color-coded based on performance
+
+🎨 Color Palette Suggestions
+
+Use 3 professional color palette options. Implement one and keep others commented.
+
+
+
+Primary: #1E3A8A (Dark Blue)
+Secondary: #3B82F6 (Bright Blue)
+Accent: #FBBF24 (Warm Yellow)
+Background: #F8FAFC (Light Gray)
+
+
+
+
+📁 Folder Structure Required
+src/
+ ├── components/
+ ├── pages/
+ ├── layouts/
+ ├── data/
+ ├── App.jsx
+ ├── main.jsx
+
+🖥 UI Requirements
+
+Clean, modern design
+
+Fully responsive
+
+Card-based layout
+
+Sidebar for dashboard
+
+Smooth hover effects
+
+Professional fonts
+
+Use icons (React Icons)
+
+⚙️ Technical Requirements
+
+Functional components
+
+Use useState
+
+Use useEffect where needed
+
+Use React Router for navigation
+
+Dummy JSON data
+
+No backend
+
+Well-structured code
+
+Proper comments
+
+🏁 Final Output Expectation
+
+The result should look like a real tuition management system frontend for:
+
+Durvankur Classes
+Owner: Priyanka Tambat
+
+It should feel:
+
+Trustworthy
+
+Organized
+
+Professional
+
+Parent-friendly

@@ -1,0 +1,45 @@
+# ─── Node / Frontend ───────────────────────────────
+node_modules/
+dist/
+build/
+.cache/
+.parcel-cache/
+.vite/
+*.local
+
+# ─── Java / Spring Boot ────────────────────────────
+backend/Durvankar/target/
+backend/*/target/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# ─── Environment & Secrets ─────────────────────────
+.env
+.env.*
+!.env.example
+application-prod.properties
+application-local.properties
+
+# ─── IDE & OS ──────────────────────────────────────
+.idea/
+.idea
+*.iml
+*.ipr
+*.iws
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── Git submodule (frontend has its own .git) ─────
+frontend/.git/
+
+# ─── Misc ──────────────────────────────────────────
+*.tmp
+*.bak
+*.swp
+seed_data.ps1
+Durvankar/

@@ -1,0 +1,107 @@
+# Add Parent-Facing Frontend Sections
+
+This adds several new frontend-only pages and enhances existing ones for the **parent** (and student) roles. All data uses the existing mock data system — no backend needed.
+
+## Proposed Changes
+
+---
+
+### Mock Data Layer
+
+#### [MODIFY] [mockData.ts](file:///c:/Users/Prashik%20Pawar/Downloads/Attached-Assets/Attached-Assets/client/src/lib/mockData.ts)
+- Add `mockTestResults` — richer marks data with school test & tuition test distinction, grade, percentage, and term
+- Add `mockWeeklyAttendance` — daily attendance for current week per student
+- Add `mockMonthlyAttendance` — per-month summary (days present, absent, %, month name)
+- Add `mockAbsenceNotifications` — list of absence-alert notifications
+- Add `mockNotes` extended — notes with `type` (`handwritten` | `video` | `ppt`), subject, thumbnail/url
+- Add `mockBatchAchievements` — previous batch toppers with name, year, percentage, rank, college
+- Extend [resolveMock()](file:///c:/Users/Prashik%20Pawar/Downloads/Attached-Assets/Attached-Assets/client/src/lib/mockData.ts#227-278) to serve new API paths
+
+---
+
+### New Pages
+
+#### [NEW] [ParentTestResults.tsx](file:///c:/Users/Prashik%20Pawar/Downloads/Attached-Assets/Attached-Assets/client/src/pages/ParentTestResults.tsx)
+- Parent/student read-only view of school test & tuition test marks
+- Tabs: School Tests | Tuition Tests
+- Table with: Test name, Subject, Marks, Total, %, Grade, Date, Remarks
+- Colour-coded grade badges (A+/A/B/C/F)
+- Filter dropdown by subject
+
+#### [NEW] [Achievements.tsx](file:///c:/Users/Prashik%20Pawar/Downloads/Attached-Assets/Attached-Assets/client/src/pages/Achievements.tsx)
+- Previous batch results/toppers hall of fame
+- Cards for Gold🥇/Silver🥈/Bronze🥉 toppers
+- Table for all achievers: Name, Batch Year, %, College Admitted
+- Prominent header with institute branding
+
+---
+
+### Modified Pages
+
+#### [MODIFY] [Attendance.tsx](file:///c:/Users/Prashik%20Pawar/Downloads/Attached-Assets/Attached-Assets/client/src/pages/Attendance.tsx)
+- When `role === "parent"` or `"student"`:
+  - Show **weekly calendar view** (Mon-Sat grid for current week)
+  - Show **monthly summary** (% present + bar chart using CSS)
+  - Show **Absence Alert panel** — red alert card listing absent dates with "Notification Sent" badge
+
+#### [MODIFY] [Notes.tsx](file:///c:/Users/Prashik%20Pawar/Downloads/Attached-Assets/Attached-Assets/client/src/pages/Notes.tsx)
+- Add **subject tabs** (Mathematics, Science, English)
+- Add **type filter chips**: All | 📝 Handwritten | 🎥 Video | 📊 PPT
+- Note cards show type icon, date, teacher name
+- Make Notes accessible to `parent` role in sidebar
+
+---
+
+### Routing & Navigation
+
+#### [MODIFY] [App.tsx](file:///c:/Users/Prashik%20Pawar/Downloads/Attached-Assets/Attached-Assets/client/src/App.tsx)
+- Add routes: `/test-results`, `/achievements`
+
+#### [MODIFY] [Sidebar.tsx](file:///c:/Users/Prashik%20Pawar/Downloads/Attached-Assets/Attached-Assets/client/src/components/Sidebar.tsx)
+- Add "Test Results" nav item for `parent`, `student`
+- Add "Achievements" nav item for all roles
+- Add "Study Notes" for `parent` role (currently excluded)
+- Add `NotificationBell` in sidebar footer for `parent`
+
+#### [NEW] [NotificationBell.tsx](file:///c:/Users/Prashik%20Pawar/Downloads/Attached-Assets/Attached-Assets/client/src/components/NotificationBell.tsx)
+- Bell icon with red badge for unread absence notifications
+- Popover dropdown listing unread absent alerts
+
+---
+
+## Verification Plan
+
+### Manual Verification (Browser)
+
+1. **Start the dev server**:
+   ```
+   cd "c:\Users\Prashik Pawar\Downloads\Attached-Assets\Attached-Assets"
+   npm run dev
+   ```
+   Open `http://localhost:5173` in a browser.
+
+2. **Login as Parent**:
+   - Go to `/login`, select role **Parent**, click Login.
+
+3. **Test Results page** (`/test-results`):
+   - Click "Test Results" in sidebar.
+   - Verify tabs "School Tests" and "Tuition Tests" appear.
+   - Verify marks table with grade badges shows dummy data.
+
+4. **Attendance page** (`/attendance`):
+   - Click "Attendance" in sidebar.
+   - Verify weekly calendar grid (Mon–Sat) with green/red cells.
+   - Verify monthly summary bar shows %.
+   - Verify red "Absence Alert" card lists absent dates.
+
+5. **Notes page** (`/notes`):
+   - Click "Study Notes" in sidebar.
+   - Verify subject tabs (Mathematics, Science, English) work.
+   - Verify type filter chips (All, Handwritten, Video, PPT) filter cards.
+
+6. **Achievements page** (`/achievements`):
+   - Click "Achievements" in sidebar.
+   - Verify Gold/Silver/Bronze topper cards display.
+   - Verify full achievers table renders.
+
+7. **Login as Student** and repeat steps 3–6 (same views).
