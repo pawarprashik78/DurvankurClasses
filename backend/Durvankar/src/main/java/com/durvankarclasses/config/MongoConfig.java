@@ -4,25 +4,30 @@ import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Programmatic MongoDB configuration.
+ * Uses app.mongodb.uri from application.properties (supports ${MONGODB_URI} env var on Render).
+ * Kept programmatic to avoid Spring auto-config conflicts with Atlas SRV URIs.
+ */
 @Configuration
 public class MongoConfig {
 
-    // Exact URI from MongoDB Atlas "Connect" button
-    private static final String ATLAS_URI =
-            "mongodb+srv://pawarprashik78_db_user:P12345@cluster0.xpcoanz.mongodb.net/?appName=Cluster0";
+    @Value("${app.mongodb.uri}")
+    private String mongoUri;
 
-    // Database name to use (created automatically on first insert)
-    private static final String DB_NAME = "durvankur_classes";
+    @Value("${app.mongodb.database}")
+    private String mongoDatabase;
 
     @Bean
     public MongoClient mongoClient() {
-        ConnectionString cs = new ConnectionString(ATLAS_URI);
+        ConnectionString cs = new ConnectionString(mongoUri);
         MongoClientSettings settings = MongoClientSettings.builder()
                 .applyConnectionString(cs)
                 .applyToSocketSettings(s -> s
@@ -36,6 +41,6 @@ public class MongoConfig {
 
     @Bean
     public MongoTemplate mongoTemplate(MongoClient mongoClient) {
-        return new MongoTemplate(mongoClient, DB_NAME);
+        return new MongoTemplate(mongoClient, mongoDatabase);
     }
 }

@@ -22,6 +22,12 @@ public class AuthController {
 
     private final AuthService authService;
 
+    /** Health check — used by Render to verify the service is up */
+    @GetMapping("/health")
+    public ResponseEntity<java.util.Map<String, String>> health() {
+        return ResponseEntity.ok(java.util.Map.of("status", "UP", "service", "Durvankar Classes API"));
+    }
+
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest req) {
         return ResponseEntity.ok(authService.login(req));

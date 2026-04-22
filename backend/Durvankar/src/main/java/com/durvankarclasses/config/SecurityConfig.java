@@ -4,7 +4,6 @@ import com.durvankarclasses.security.JwtAuthenticationEntryPoint;
 import com.durvankarclasses.security.JwtAuthenticationFilter;
 import com.durvankarclasses.security.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -24,7 +23,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -36,9 +34,6 @@ public class SecurityConfig {
     private final CustomUserDetailsService userDetailsService;
     private final JwtAuthenticationEntryPoint jwtEntryPoint;
     private final JwtAuthenticationFilter jwtFilter;
-
-    @Value("${app.cors.allowed-origins}")
-    private String allowedOrigins;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -61,10 +56,13 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList(allowedOrigins.split(",")));
+        // allowedOriginPatterns supports wildcard "*" even with allowCredentials=true
+        config.setAllowedOriginPatterns(List.of("*"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
+        config.setExposedHeaders(List.of("Authorization"));
         config.setAllowCredentials(true);
+        config.setMaxAge(3600L);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
@@ -78,7 +76,7 @@ public class SecurityConfig {
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtEntryPoint))
             .authorizeHttpRequests(auth -> auth
-                // Public endpoints
+                // Public endpoints (login, register, health check)
                 .requestMatchers("/api/auth/**").permitAll()
                 // Static data - any authenticated user
                 .requestMatchers(HttpMethod.GET, "/api/subjects/**").authenticated()

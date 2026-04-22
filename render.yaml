@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: durvankur-classes-backend
+    runtime: java
+    rootDir: backend/Durvankar
+    buildCommand: ./mvnw package -DskipTests
+    startCommand: java -jar target/Durvankar-0.0.1-SNAPSHOT.jar
+    healthCheckPath: /api/auth/health
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGODB_DATABASE
+        value: durvankur_classes
+      - key: JWT_SECRET
+        sync: false
+      - key: MAIL_USERNAME
+        sync: false
+      - key: MAIL_PASSWORD
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
