@@ -5,7 +5,7 @@
 
 [build.environment]
   NODE_VERSION   = "20"
-  VITE_API_URL   = "https://durvankurclasses.onrender.com/api"
+  VITE_API_URL   = "https://durvankurclasses-backend.onrender.com/api"
 
 [[redirects]]
   from   = "/*"
