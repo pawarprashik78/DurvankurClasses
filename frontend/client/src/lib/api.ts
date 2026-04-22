@@ -1,7 +1,7 @@
 // ─── Central API Client ───────────────────────────────────────────────────────
 // All requests go through this. JWT token is automatically attached.
 
-const BASE = "https://durvankurclasses.onrender.com/api"; // Vite proxy forwards to http://localhost:8080
+const BASE = (import.meta.env.VITE_API_URL as string) || "http://localhost:8080/api";
 
 // ── Token helpers ──────────────────────────────────────────────────────────────
 export const getToken = (): string | null => localStorage.getItem("jwtToken");
